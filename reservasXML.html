@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lista de Reservas de Hotel ULEAM</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            background-color: #FFADD8E6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+        
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #FF66;
+        }
+    </style>
+    <script>
+        function cargarReservas() {
+            var reservasXML = `<?xml version="1.0" encoding="UTF-8"?>
+                        <reservas>
+                          <reserva>
+                            <nombre>Yadira Comboza</nombre>
+                            <fecha_reserva>05-06-2023</fecha_reserva>
+                            <tipo_habitacion>Doble</tipo_habitacion>
+                            <check_in>08-06-2023 14:00</check_in>
+                            <check_out>09-06-2023 12:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>Marilin Chancay</nombre>
+                            <fecha_reserva>06-06-2023</fecha_reserva>
+                            <tipo_habitacion>Individual</tipo_habitacion>
+                            <check_in>07-06-2023 15:00</check_in>
+                            <check_out>08-06-2023 11:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>Jose Rodríguez</nombre>
+                            <fecha_reserva>11-06-2023</fecha_reserva>
+                            <tipo_habitacion>Familiar</tipo_habitacion>
+                            <check_in>13-06-2023 13:00</check_in>
+                            <check_out>16-06-2023 10:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>Javier Medina</nombre>
+                            <fecha_reserva>01-06-2023</fecha_reserva>
+                            <tipo_habitacion>Individual</tipo_habitacion>
+                            <check_in>05-06-2023 12:00</check_in>
+                            <check_out>07-06-2023 15:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>Edwin Mera</nombre>
+                            <fecha_reserva>04-06-2023</fecha_reserva>
+                            <tipo_habitacion>Doble</tipo_habitacion>
+                            <check_in>06-06-2023 16:00</check_in>
+                            <check_out>08-06-2023 10:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>Arelis Medina</nombre>
+                            <fecha_reserva>03-06-2023</fecha_reserva>
+                            <tipo_habitacion>Individual</tipo_habitacion>
+                            <check_in>05-06-2023 14:00</check_in>
+                            <check_out>06-06-2023 11:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>Luis Calderon</nombre>
+                            <fecha_reserva>03-06-2023</fecha_reserva>
+                            <tipo_habitacion>Familiar</tipo_habitacion>
+                            <check_in>05-06-2023 12:00</check_in>
+                            <check_out>09-06-2023 10:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>José Medina</nombre>
+                            <fecha_reserva>11-06-2023</fecha_reserva>
+                            <tipo_habitacion>Doble</tipo_habitacion>
+                            <check_in>15-06-2023 15:00</check_in>
+                            <check_out>20-06-2023 11:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>Franco Herrera</nombre>
+                            <fecha_reserva>04-06-2023</fecha_reserva>
+                            <tipo_habitacion>Individual</tipo_habitacion>
+                            <check_in>10-06-2023 12:00</check_in>
+                            <check_out>12-06-2023 15:00</check_out>
+                          </reserva>
+                          <reserva>
+                            <nombre>Andrés Macias</nombre>
+                            <fecha_reserva>08-06-2023</fecha_reserva>
+                            <tipo_habitacion>Doble</tipo_habitacion>
+                            <check_in>05-07-2023 16:00</check_in>
+                            <check_out>09-07-2023 10:00</check_out>
+                          </reserva>
+                        </reservas>`;
+
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(reservasXML, "text/xml");
+            var reservas = xmlDoc.getElementsByTagName("reserva");
+
+            var tablaBody = document.getElementById("tabla-body");
+
+            for (var i = 0; i < reservas.length; i++) {
+                var reserva = reservas[i];
+                var nombre = reserva.getElementsByTagName("nombre")[0].textContent;
+                var fechaReserva = reserva.getElementsByTagName("fecha_reserva")[0].textContent;
+                var tipoHabitacion = reserva.getElementsByTagName("tipo_habitacion")[0].textContent;
+                var checkIn = reserva.getElementsByTagName("check_in")[0].textContent;
+                var checkOut = reserva.getElementsByTagName("check_out")[0].textContent;
+
+                var fila = document.createElement("tr");
+                var celdaNombre = document.createElement("td");
+                celdaNombre.textContent = nombre;
+                var celdaFechaReserva = document.createElement("td");
+                celdaFechaReserva.textContent = fechaReserva;
+                var celdaTipoHabitacion = document.createElement("td");
+                celdaTipoHabitacion.textContent = tipoHabitacion;
+                var celdaCheckIn = document.createElement("td");
+                celdaCheckIn.textContent = checkIn;
+                var celdaCheckOut = document.createElement("td");
+                celdaCheckOut.textContent = checkOut;
+
+                fila.appendChild(celdaNombre);
+                fila.appendChild(celdaFechaReserva);
+                fila.appendChild(celdaTipoHabitacion);
+                fila.appendChild(celdaCheckIn);
+                fila.appendChild(celdaCheckOut);
+
+                tablaBody.appendChild(fila);
+            }
+        }
+
+        function mostrarTabla() {
+            document.getElementById("inicio").style.display = "none";
+            document.getElementById("tabla").style.display = "block";
+            cargarReservas();
+        }
+    </script>
+</head>
+
+<body>
+    <div id="inicio" class="container">
+        <h1>Hotel ULEAM lista de Reservas de Huéspedes</h1>
+        <button class="btn" onclick="mostrarTabla()">Ver Reservas</button>
+    </div>
+
+    <div id="tabla" style="display: none;">
+        <h1>Lista de Reservas del Hotel ULEAM</h1>
+        <table id="tabla-reservas">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha de Reserva</th>
+                    <th>Tipo de Habitación</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body"></tbody>
+        </table>
+    </div>
+</body>
+
+</html>

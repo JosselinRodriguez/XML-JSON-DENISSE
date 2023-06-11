@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lista de Cancelaciones de Reservas de Hotel ULEAM</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            background-color: #FFADD8E6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+        
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #FF66;
+        }
+    </style>
+    <script>
+        function cargarCancelaciones() {
+            var cancelacionesJSON = `[
+                {
+                    "nombre": "Jesica Alcivar",
+                    "fecha_cancelacion": "05-06-2023"
+                },
+                {
+                    "nombre": "Rocio Alcivar",
+                    "fecha_cancelacion": "07-06-2023"
+                },
+                {
+                    "nombre": "Telmo Rodríguez",
+                    "fecha_cancelacion": "10-06-2023"
+                },
+                {
+                    "nombre": "Ana Delgado",
+                    "fecha_cancelacion": "04-06-2023"
+                },
+                {
+                    "nombre": "Betty Mera",
+                    "fecha_cancelacion": "03-06-2023"
+                },
+                {
+                    "nombre": "Amy Sosa",
+                    "fecha_cancelacion": "13-06-2023"
+                },
+                {
+                    "nombre": "Gabriel García",
+                    "fecha_cancelacion": "16-06-2023"
+                },
+                {
+                    "nombre": "Miguel Torres",
+                    "fecha_cancelacion": "25-06-2023"
+                },
+                {
+                    "nombre": "Isabel vega",
+                    "fecha_cancelacion": "30-06-2023"
+                },
+                {
+                    "nombre": "Maribel Vargas",
+                    "fecha_cancelacion": "22-06-2023"
+                }
+            ]`;
+
+            var cancelaciones = JSON.parse(cancelacionesJSON);
+
+            var tablaBody = document.getElementById("tabla-body");
+
+            for (var i = 0; i < cancelaciones.length; i++) {
+                var cancelacion = cancelaciones[i];
+                var nombre = cancelacion.nombre;
+                var fechaCancelacion = cancelacion.fecha_cancelacion;
+
+                var fila = document.createElement("tr");
+                var celdaNombre = document.createElement("td");
+                celdaNombre.textContent = nombre;
+                var celdaFechaCancelacion = document.createElement("td");
+                celdaFechaCancelacion.textContent = fechaCancelacion;
+
+                fila.appendChild(celdaNombre);
+                fila.appendChild(celdaFechaCancelacion);
+
+                tablaBody.appendChild(fila);
+            }
+        }
+
+        function mostrarTabla() {
+            document.getElementById("inicio").style.display = "none";
+            document.getElementById("tabla").style.display = "block";
+            cargarCancelaciones();
+        }
+    </script>
+</head>
+
+<body>
+    <div id="inicio" class="container">
+        <h1>Hotel ULEAM lista de Cancelaciones de Reservas</h1>
+        <button class="btn" onclick="mostrarTabla()">Ver Cancelaciones</button>
+    </div>
+
+    <div id="tabla" style="display: none;">
+        <h1>Lista de Cancelaciones de Reservas de Hotel ULEAM</h1>
+        <table id="tabla-cancelaciones">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha de Cancelación</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body"></tbody>
+        </table>
+    </div>
+</body>
+
+</html>
